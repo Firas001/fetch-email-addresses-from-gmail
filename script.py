@@ -6,10 +6,10 @@ import ssl
 import csv
 
 
-SEARCH_FOLDER = ['"[Gmail]/&BigGMQZKBi8- &BkUGMQYzBkQ-"', '"INBOX"']  # select the folder that you want to retrieve
+SEARCH_FOLDER = ['"[Gmail]/Mail Sent"', '"INBOX"']  # select the folder that you want to retrieve
 DEFAULT_MAIL_SERVER = 'imap.gmail.com' # connect to gmail
-USERNAME = 'al.dweni001@gmail.com'
-PASSWORD = 'ifagqbkpnvnwfgdz'
+USERNAME = 'email'
+PASSWORD = 'password'
 excluded_words = ['support', 'reply', 'service', 'notification', 'notify', 'lamah', 'facebook', 'adobe']
 
 # No user parameters below this line
