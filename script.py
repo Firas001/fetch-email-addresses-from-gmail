@@ -5,11 +5,12 @@ import re
 import ssl
 import csv
 
-SEARCH_FOLDER = ['"[Gmail]/Sent Mail"', '"INBOX"']  # select the folder that you want to retrieve
+
+SEARCH_FOLDER = ['"[Gmail]/&BigGMQZKBi8- &BkUGMQYzBkQ-"', '"INBOX"']  # select the folder that you want to retrieve
 DEFAULT_MAIL_SERVER = 'imap.gmail.com' # connect to gmail
-USERNAME = 'your_email'
-PASSWORD = 'your_password'
-substrings = ['support', 'reply', 'service', 'notification', 'notify', 'lamah', 'facebook', 'adobe']
+USERNAME = 'al.dweni001@gmail.com'
+PASSWORD = 'ifagqbkpnvnwfgdz'
+excluded_words = ['support', 'reply', 'service', 'notification', 'notify', 'lamah', 'facebook', 'adobe']
 
 # No user parameters below this line
 ADDR_PATTERN = re.compile("<(.+)>")  # Finds email as <nospam@nospam.com>
@@ -33,9 +34,9 @@ def print_folders(conn):
             print("\t", i)
 
 
-def filter_by_words(word_list, substrings):
-    filtered_list = [word for word in word_list if all(substring not in word for substring in substrings)]
-    return filtered_list
+# def filter_by_words(word_list, substrings):
+#     filtered_list = [word for word in word_list if all(substring not in word for substring in substrings)]
+#     return filtered_list
 
 
 def get_mails_from_folder(conn, folder_name):
@@ -79,8 +80,9 @@ def get_recipients(msg):
 
         # str conversion is needed for non-ascii chars
         rlist = ADDR_PATTERN.findall(str(msg[f]))
-        filter_list = filter_by_words(rlist, substrings)
-        recipients.extend(filter_list)
+        if not any(word in rlist[0] for word in excluded_words):
+            all_emails.extend(rlist)
+        # recipients.extend(filter_list)
 
     return recipients
 
@@ -109,4 +111,3 @@ if __name__ == "__main__":
         writer = csv.writer(emails_file)
         writer.writerow(['Emails'])
         writer.writerows([[email] for email in set(all_emails)])
-
