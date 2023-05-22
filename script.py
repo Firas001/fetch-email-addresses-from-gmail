@@ -6,7 +6,7 @@ import ssl
 import csv
 
 
-SEARCH_FOLDER = ['"[Gmail]/Mail Sent"', '"INBOX"']  # select the folder that you want to retrieve
+SEARCH_FOLDER = ['"[Gmail]/Sent Mail"', "INBOX"]  # select the folder that you want to retrieve
 DEFAULT_MAIL_SERVER = 'imap.gmail.com' # connect to gmail
 USERNAME = 'email'
 PASSWORD = 'password'
@@ -80,9 +80,8 @@ def get_recipients(msg):
 
         # str conversion is needed for non-ascii chars
         rlist = ADDR_PATTERN.findall(str(msg[f]))
-        if not any(word in rlist[0] for word in excluded_words):
+        if not any(word in ''.join(rlist) for word in excluded_words):
             all_emails.extend(rlist)
-        # recipients.extend(filter_list)
 
     return recipients
 
