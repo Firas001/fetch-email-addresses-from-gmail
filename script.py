@@ -5,15 +5,10 @@ import re
 import ssl
 import csv
 
-
-imap_url = 'imap.gmail.com'
-user = 'al.dweni001@gmail.com'
-password = 'ifagqbkpnvnwfgdz'
-
-SEARCH_FOLDER = ['"[Gmail]/&BigGMQZKBi8- &BkUGMQYzBkQ-"', '"INBOX"']  # select the folder that you want to retrieve
+SEARCH_FOLDER = ['"[Gmail]/Sent Mail"', '"INBOX"']  # select the folder that you want to retrieve
 DEFAULT_MAIL_SERVER = 'imap.gmail.com' # connect to gmail
-USERNAME = 'al.dweni001@gmail.com'
-PASSWORD = 'ifagqbkpnvnwfgdz'
+USERNAME = 'your_email'
+PASSWORD = 'your_password'
 substrings = ['support', 'reply', 'service', 'notification', 'notify', 'lamah', 'facebook', 'adobe']
 
 # No user parameters below this line
