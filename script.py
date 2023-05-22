@@ -6,14 +6,14 @@ import ssl
 import csv
 
 
-SEARCH_FOLDER = ['"[Gmail]/Sent Mail"', "INBOX"]  # select the folder that you want to retrieve
+SEARCH_FOLDER = ['"[Gmail]/Sent Mail"', '"INBOX"']  # select the folder that you want to retrieve
 DEFAULT_MAIL_SERVER = 'imap.gmail.com' # connect to gmail
 USERNAME = 'email'
 PASSWORD = 'password'
-excluded_words = ['support', 'reply', 'service', 'notification', 'notify', 'lamah', 'facebook', 'adobe']
+excluded_words = ['support', 'reply', 'service', 'notification', 'notify', 'facebook', 'adobe']
 
-# No user parameters below this line
-ADDR_PATTERN = re.compile("<(.+)>")  # Finds email as <nospam@nospam.com>
+# regular expression pattern to match email addresses
+pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
 
 def connect(user, pwd, server=DEFAULT_MAIL_SERVER):
     """Connect to [the specified] mail server. Return an open connection"""
@@ -79,9 +79,10 @@ def get_recipients(msg):
             continue
 
         # str conversion is needed for non-ascii chars
-        rlist = ADDR_PATTERN.findall(str(msg[f]))
-        if not any(word in ''.join(rlist) for word in excluded_words):
-            all_emails.extend(rlist)
+        rlist = re.findall(pattern, str(msg[f]))
+        for e in rlist:
+            if not any(word in e for word in excluded_words):
+                all_emails.extend(list(e.split(" ")))
 
     return recipients
 
